@@ -1,22 +1,12 @@
 /*
-Pakeisti tekstini turini h1 elemente i  "Labas vakaras!"
-*/
-
-const h1DOM = document.querySelector('h1');        // 1. susirandu elementa
-h1DOM.innerText = 'Labas vakaras!';                // 2. kreipiuosi i rasta elementa
-
-
-/*
-Jeigu Jusu vardo raide A-P;
-surasti paragrafa ir pakeisti teksta i "Siandien grazus oras!"
-
-Jeigu Jusu vardo raide R-Z;
-surasti nuoroda ir pakeisti teksta i "Spausk mane!"
+Surasti visus ingridientus ir ju pavadinimus atspausdinti i console
 
 */
 
-const pDOM = document.querySelector('p');
-pDOM.innerText = 'Siandien grazus oras!';
+const liDOM = document.querySelectorAll('li');
+console.log(liDOM);
 
-const aDOM = document.querySelector('a');
-aDOM.innerText = 'Spausk mane!';
+for (let i = 0; i < liDOM.length; i++) {
+    const ingridientas = liDOM[i].innerText;
+    console.log(ingridientas);
+}
