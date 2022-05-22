@@ -1,20 +1,18 @@
 /*
 Surasti h1 (antraste)
-Prideti prie jos CSS class, kuri pakeicia teksto spalva i raudona
+Perrasyti h1 elemento teksta i "Zuikio tekstas"
 
-Surasti VISUS ingridientus
-Kiekvienam ingridientui prideti CSS class pavadinimu darzove
+Surasti VISAS darzoves
+Kiekvienos darzoves teksta pakeisti i "Israuta darzove"
 */
 
-const h1DOM = document.querySelector('h1');     // susirandam darbini elementa, su kuriuo norime dirbti
-h1DOM.classList.add('antraste');                // kreiptis i nurodyta elementa ir prie jo klasiu saraso prideti nurodyto pavadinimo klase (tada h1 pasidarys toks, koki klase turi aprasyma)
+const h1DOM = document.querySelector('h1');
+h1DOM.innerText = 'Zuikio darzas';
 
 const ingridientai = document.querySelectorAll('li');
-
 for (let i = 0; i < ingridientai.length; i++) {
-    ingridientai[i].classList.add('darzove');
-};
-
+    ingridientai[i].innerText = 'Israuta darzove';              // jei vietoj i irasysime skaiciu, tai israus tik numeriuku pazymeta darzove
+}
 
 
  
