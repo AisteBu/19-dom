@@ -21,17 +21,9 @@ CSS perrasyti taip, jog meniu elementai butu atvaizduoti vertikaliai ir logo su 
 
 const logoDOM = document.querySelector('.logo');
 const hamburgerDOM = document.querySelector('.hamburger');
-
-console.log(logoDOM);
-console.log(hamburgerDOM);
-
-hamburgerDOM.addEventListener('click', () => {
-    logoDOM.classList.toggle('big');            /* toggle -> jeigu yra - nuimk, jei nera - pridek */
-} )
-
-
 const navDOM = document.querySelector('nav');
 
 hamburgerDOM.addEventListener('click', () => {
+    logoDOM.classList.toggle('big');            /* toggle -> jeigu yra - nuimk, jei nera - pridek */
     navDOM.classList.toggle('visible');
-})
+} )
