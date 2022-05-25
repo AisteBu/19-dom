@@ -1,29 +1,33 @@
-/*
-Surasti logotipa
+// Pradinis rezultatas lygus nuliui
 
-Susirasti hamburgeri
+// Susirasti minuso mygtuka
 
-Paspaudus ant hamburgerio, logotipo elementui reikia uzdeti CSS class pavadinimu "big"
+// Susirasti pliuso mygtuka
 
-Antra karta paspaudus ant hamburgerio, logotipo elementui reikia nuimti CSS class pavadinimu "big"
+// Susirasti rezultato atvaizdavimo elementa
 
+// Paspaudus ant minuso, rezultatas mazinamas vienu vienetu
 
-Susirasti meniu elementa (nav)
+// Paspaudus ant pliuso, rezultatas didinamas vienu vienetu
 
-Paspaudus ant hamburgerio, meniu elementui reikia uzdeti CSS class pavadinimu "visible"
+// Paspaudus ant reset, rezultatas turi grizti i nuli
 
-Antra karta paspaudus ant hamburgerio, meniu elementui reikia nuimti CSS class pavadinimu "visible"
+let rezultatas = 0;             // jeigu butu const, negaletume atnaujinti rezultato
 
+const minusDOM = document.querySelector('.minus');
+const numberDOM = document.querySelector('.number');
+const plusDOM = document.querySelector('.plus');
+const resetDOM = document.querySelector('.reset');
 
-Extra:
-CSS perrasyti taip, jog meniu elementai butu atvaizduoti vertikaliai ir logo su hamburgeriu - "kabetu" virsuje
-*/
+minusDOM.addEventListener('click', () => {
+    numberDOM.innerText = --rezultatas;
+})
 
-const logoDOM = document.querySelector('.logo');
-const hamburgerDOM = document.querySelector('.hamburger');
-const navDOM = document.querySelector('nav');
+plusDOM.addEventListener('click', () => {
+    numberDOM.innerText = ++rezultatas;
+})
 
-hamburgerDOM.addEventListener('click', () => {
-    logoDOM.classList.toggle('big');            /* toggle -> jeigu yra - nuimk, jei nera - pridek */
-    navDOM.classList.toggle('visible');
-} )
+resetDOM.addEventListener('click', () => {
+    rezultatas = 0;
+    numberDOM.innerText = rezultatas;
+})
