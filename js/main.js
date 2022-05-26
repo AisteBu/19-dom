@@ -45,6 +45,8 @@
 
 // `input` elemento reiksme istraukiama kreipiantis i to elemento `value` parametra, pvz.: `element.value`
 
+// po ivesto teksto nuskaitymo, isvalyti ivesties lauka 'input'
+
 const inputDOM = document.querySelector('input');
 const buttonDOM = document.querySelector('button');
 const spanDOM = document.querySelector('span');
@@ -53,4 +55,6 @@ const spanDOM = document.querySelector('span');
 buttonDOM.addEventListener ('click', (event) => {    //event - tai tik kintamasis
     event.preventDefault();
     spanDOM.innerText = inputDOM.value;
+    inputDOM.value = '';   // kai po visko nori teksta isvalyt, pareasai nauja reiksme jam
 })
+
