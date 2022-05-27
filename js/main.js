@@ -47,14 +47,45 @@
 
 // po ivesto teksto nuskaitymo, isvalyti ivesties lauka 'input'
 
-const inputDOM = document.querySelector('input');
+// const inputDOM = document.querySelector('input');
+// const buttonDOM = document.querySelector('button');
+// const spanDOM = document.querySelector('span');
+
+
+// buttonDOM.addEventListener ('click', (event) => {    //event - tai tik kintamasis
+//     event.preventDefault();
+//     spanDOM.innerText = inputDOM.value;
+//     inputDOM.value = '';   // kai po visko nori teksta isvalyt, parasai nauja reiksme jam
+// })
+
+// Zinutes ivesties lauko teksto spalva turi buti raudona (tai realizuoti su JS, bet ne per CSS)
+
+// Formoje parasyta tekst zinute, po `submit` mygtuko paspaudimo turi buti atvaizduotas `<span>` elemente.
+
+// Spalvoms skirti laukai turi tureti nurodyta atitinkama tipa (zr.dokumentacija)
+
+// `input` elemento reiksme istraukiama kreipiantis i to elemento `value` parametra, pvz.: `element.value`
+
+// Taip pat, tam `<span>` elementui turi buti priskirtos fono ir teksto spalvos is atitinkamu formos lauku.
+
+// Norint elementui priskirti papildoma stiliu (kalba eina apie span), reikia rasyti, pvz.: `element.style.backgroundColor = "red"`
+
+// Po ivesto teksto nuskaitymo, isvalyti ivesties lauka 'input'
+
 const buttonDOM = document.querySelector('button');
 const spanDOM = document.querySelector('span');
+const messageInputDOM = document.querySelector('#message');         // kai yra html`e id, tada cia rasome #
+const BgColorInputDOM = document.querySelector('#bg-color');
+const TextColorInputDOM = document.querySelector('#text-color');
 
+messageInputDOM.style.color = 'red';           // nes ieskom pirmo random elemento, o ne all
 
-buttonDOM.addEventListener ('click', (event) => {    //event - tai tik kintamasis
-    event.preventDefault();
-    spanDOM.innerText = inputDOM.value;
-    inputDOM.value = '';   // kai po visko nori teksta isvalyt, pareasai nauja reiksme jam
+buttonDOM.addEventListener ('click', (event) => {    
+        event.preventDefault();         // budas isvengti page reload
+        spanDOM.innerText = messageInputDOM.value;
+        messageInputDOM.value = '';  
+        spanDOM.style.backgroundColor = BgColorInputDOM.value;
+        spanDOM.style.color = TextColorInputDOM.value;
 })
+
 

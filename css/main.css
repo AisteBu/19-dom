@@ -7,11 +7,26 @@ body {
     gap: 40px;
     font-size: 30px;
 }
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 input,
 button {
     padding: 0 20px;
     font-size: 30px;
     line-height: 40px;
+}
+input[type='color'] {
+    width: 100px;
+    width: 50px;
+    padding: 0;     /* jeigu tavo tipas yra color, tada tavo padding yra toks */
 }
 span {
     padding: 0 20px;
