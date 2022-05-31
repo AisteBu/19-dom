@@ -72,20 +72,78 @@
 
 // Po ivesto teksto nuskaitymo, isvalyti ivesties lauka 'input'
 
-const buttonDOM = document.querySelector('button');
-const spanDOM = document.querySelector('span');
-const messageInputDOM = document.querySelector('#message');         // kai yra html`e id, tada cia rasome #
-const BgColorInputDOM = document.querySelector('#bg-color');
-const TextColorInputDOM = document.querySelector('#text-color');
+// const buttonDOM = document.querySelector('button');
+// const spanDOM = document.querySelector('span');
+// const messageInputDOM = document.querySelector('#message');         // kai yra html`e id, tada cia rasome #
+// const BgColorInputDOM = document.querySelector('#bg-color');
+// const TextColorInputDOM = document.querySelector('#text-color');
 
-messageInputDOM.style.color = 'red';           // nes ieskom pirmo random elemento, o ne all
+// messageInputDOM.style.color = 'red';           // nes ieskom pirmo random elemento, o ne all
 
-buttonDOM.addEventListener ('click', (event) => {    
-        event.preventDefault();         // budas isvengti page reload
-        spanDOM.innerText = messageInputDOM.value;
-        messageInputDOM.value = '';  
-        spanDOM.style.backgroundColor = BgColorInputDOM.value;
-        spanDOM.style.color = TextColorInputDOM.value;
+// buttonDOM.addEventListener ('click', (event) => {    
+//         event.preventDefault();         // budas isvengti page reload
+//         spanDOM.innerText = messageInputDOM.value;
+//         messageInputDOM.value = '';  
+//         spanDOM.style.backgroundColor = BgColorInputDOM.value;
+//         spanDOM.style.color = TextColorInputDOM.value;
+// })
+
+// Sriuba, pagrindinis patiekalas ir desertas yra checkbox'ai, kuriuos pazymejus, klientas nurodo, jog nori juos uzsisakyti
+
+// Gerimai yra pasirenkami vienas is nurodytu (radio button)
+
+// Submit'inus forma <div class="order"> elemente turi buti suformuota zinute, kurios sablonas yra toks:
+// "Uzsakovas vardu [vardas] [nori/nenori] sriubos, [nori/nenori] pagrindinio patiekalo, [nori/nenori] deserto ir [gerimo pavadinimas] yra pasirinktas gerimas."
+
+// `input` elementu tipus pasikoreguoti pagal poreiki.
+
+//  MANO SPRENDIMAS:
+
+// const uzsakytiDOM = document.querySelector('button');  
+// const uzsakymasDOM = document.querySelector('.order');
+// const uzsakovasDOM = document.querySelector('#customer');
+// const sriubaDOM = document.querySelector('#sriuba');
+// const patiekalasDOM = document.querySelector('#patiekalas');
+// const desertasDOM = document.querySelector('#desertas');
+
+// uzsakytiDOM.addEventListener ('click', (event) => {             //pradedama stebeti, kada mygtukas bus paspaustas
+//     event.preventDefault();                                     // logika rasoma tarp riestiniu skliaustu
+    
+//     const noriSriubos = sriubaDOM.checked? sriubaDOM.innerHTML = 'nori' : sriubaDOM.innerHTML = 'nenori';           // panaudojau 09-ternary.js funkcija
+
+//     const noriPatiekalo = patiekalasDOM.checked? patiekalasDOM.innerHTML = 'nori' : patiekalasDOM.innerHTML = 'nenori';
+
+//     const noriDeserto = desertasDOM.checked? desertasDOM.innerHTML = 'nori' : desertasDOM.innerHTML = 'nenori';
+
+//     const pasirinktasGerimas = document.querySelector(
+//         'input[name="gerimas"]:checked');
+
+//     uzsakymasDOM.innerText = `Užsakovas vardu ${uzsakovasDOM.value} ${sriubaDOM.innerHTML} sriubos, ${patiekalasDOM.innerHTML} pagrindinio patiekalo, ${desertasDOM.innerHTML} deserto ir ${pasirinktasGerimas.value} yra pasirinktas gerimas.`
+// })
+
+// DESTYTOJO SPRENDIMAS:
+const submitDOM = document.querySelector('button');  
+const orderDOM = document.querySelector('.order');
+const nameDOM = document.querySelector('#customer');
+const sriubaDOM = document.querySelector('#sriuba');
+const patiekalasDOM = document.querySelector('#patiekalas');
+const desertasDOM = document.querySelector('#desertas');
+const allgerimaiDOM = document.querySelectorAll('input[name="gerimas"]');
+
+    function arNoriu(DOM) {
+        return DOM.checked? 'nori' : 'nenori';
+    }
+
+    function kurisPazymetas(DOMlist) {
+        for (const itemDOM of DOMlist) {
+            if (itemDOM.checked) {
+                return itemDOM.value;
+            }
+        }
+    }
+
+    submitDOM.addEventListener ('click', (event) => {        
+        event.preventDefault();                     
+    
+        orderDOM.innerText = `Užsakovas vardu ${nameDOM.value} ${arNoriu(sriubaDOM)} sriubos, ${arNoriu(patiekalasDOM)} pagrindinio patiekalo, ${arNoriu(desertasDOM)} deserto ir ${kurisPazymetas(allgerimaiDOM)} yra pasirinktas gerimas.`
 })
-
-
