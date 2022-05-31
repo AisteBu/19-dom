@@ -97,6 +97,10 @@
 
 // `input` elementu tipus pasikoreguoti pagal poreiki.
 
+// Reikia graziai susitvarkyti su situacija, kai klientas nenurodo savo vardo
+
+// Reikia graziai susitvarkyti su situacija, kai klientas nepasirenka gerimo
+
 //  MANO SPRENDIMAS:
 
 // const uzsakytiDOM = document.querySelector('button');  
@@ -130,7 +134,11 @@ const patiekalasDOM = document.querySelector('#patiekalas');
 const desertasDOM = document.querySelector('#desertas');
 const allgerimaiDOM = document.querySelectorAll('input[name="gerimas"]');
 
-    function arNoriu(DOM) {
+function Uzsakovas (nameDOM) {
+
+}   
+
+function arNoriu(DOM) {
         return DOM.checked? 'nori' : 'nenori';
     }
 
@@ -143,7 +151,23 @@ const allgerimaiDOM = document.querySelectorAll('input[name="gerimas"]');
     }
 
     submitDOM.addEventListener ('click', (event) => {        
-        event.preventDefault();                     
+        event.preventDefault();      
+        
+        const vardas = nameDOM.value.trim();            // trim - metodas, kuris is gautos tekstine reiksmes priekio ir galo ismeta tarpus
+        const sakinioPradzia = vardas ? 'vardu ' + vardas : 'nenurodes vardo';
+
+        const pasirinktasGerimas = kurisPazymetas(allgerimaiDOM);
+        const sakinioPabaiga = pasirinktasGerimas ? pasirinktasGerimas + ' yra pasirinktas gerimas' : ' gerimo nepasirinko';
     
-        orderDOM.innerText = `Užsakovas vardu ${nameDOM.value} ${arNoriu(sriubaDOM)} sriubos, ${arNoriu(patiekalasDOM)} pagrindinio patiekalo, ${arNoriu(desertasDOM)} deserto ir ${kurisPazymetas(allgerimaiDOM)} yra pasirinktas gerimas.`
+        orderDOM.innerText = `Užsakovas  ${sakinioPradzia} ${arNoriu(sriubaDOM)} sriubos, ${arNoriu(patiekalasDOM)} pagrindinio patiekalo, ${arNoriu(desertasDOM)} deserto ir ${sakinioPabaiga}.`
 })
+
+/*
+PRADZIA: 
+Uzsakovas vardu X nori...
+Uzsakovas nenurodes vardo nori...
+
+PABAIGA:
+ir x yra pasirinktas gerimas.
+ir gerimo nepasirinko.
+*/
