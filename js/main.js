@@ -126,41 +126,37 @@
 // })
 
 // DESTYTOJO SPRENDIMAS:
-const submitDOM = document.querySelector('button');  
-const orderDOM = document.querySelector('.order');
-const nameDOM = document.querySelector('#customer');
-const sriubaDOM = document.querySelector('#sriuba');
-const patiekalasDOM = document.querySelector('#patiekalas');
-const desertasDOM = document.querySelector('#desertas');
-const allgerimaiDOM = document.querySelectorAll('input[name="gerimas"]');
+// const submitDOM = document.querySelector('button');  
+// const orderDOM = document.querySelector('.order');
+// const nameDOM = document.querySelector('#customer');
+// const sriubaDOM = document.querySelector('#sriuba');
+// const patiekalasDOM = document.querySelector('#patiekalas');
+// const desertasDOM = document.querySelector('#desertas');
+// const allgerimaiDOM = document.querySelectorAll('input[name="gerimas"]');
 
-function Uzsakovas (nameDOM) {
+// function arNoriu(DOM) {
+//         return DOM.checked? 'nori' : 'nenori';
+//     }
 
-}   
+//     function kurisPazymetas(DOMlist) {
+//         for (const itemDOM of DOMlist) {
+//             if (itemDOM.checked) {
+//                 return itemDOM.value;
+//             }
+//         }
+//     }
 
-function arNoriu(DOM) {
-        return DOM.checked? 'nori' : 'nenori';
-    }
-
-    function kurisPazymetas(DOMlist) {
-        for (const itemDOM of DOMlist) {
-            if (itemDOM.checked) {
-                return itemDOM.value;
-            }
-        }
-    }
-
-    submitDOM.addEventListener ('click', (event) => {        
-        event.preventDefault();      
+//     submitDOM.addEventListener ('click', (event) => {        
+//         event.preventDefault();      
         
-        const vardas = nameDOM.value.trim();            // trim - metodas, kuris is gautos tekstine reiksmes priekio ir galo ismeta tarpus
-        const sakinioPradzia = vardas ? 'vardu ' + vardas : 'nenurodes vardo';
+//         const vardas = nameDOM.value.trim();            // trim - metodas, kuris is gautos tekstine reiksmes priekio ir galo ismeta tarpus
+//         const sakinioPradzia = vardas ? 'vardu ' + vardas : 'nenurodes vardo';
 
-        const pasirinktasGerimas = kurisPazymetas(allgerimaiDOM);
-        const sakinioPabaiga = pasirinktasGerimas ? pasirinktasGerimas + ' yra pasirinktas gerimas' : ' gerimo nepasirinko';
+//         const pasirinktasGerimas = kurisPazymetas(allgerimaiDOM);
+//         const sakinioPabaiga = pasirinktasGerimas ? pasirinktasGerimas + ' yra pasirinktas gerimas' : ' gerimo nepasirinko';
     
-        orderDOM.innerText = `Užsakovas  ${sakinioPradzia} ${arNoriu(sriubaDOM)} sriubos, ${arNoriu(patiekalasDOM)} pagrindinio patiekalo, ${arNoriu(desertasDOM)} deserto ir ${sakinioPabaiga}.`
-})
+//         orderDOM.innerText = `Užsakovas  ${sakinioPradzia} ${arNoriu(sriubaDOM)} sriubos, ${arNoriu(patiekalasDOM)} pagrindinio patiekalo, ${arNoriu(desertasDOM)} deserto ir ${sakinioPabaiga}.`
+// })
 
 /*
 PRADZIA: 
@@ -171,3 +167,40 @@ PABAIGA:
 ir x yra pasirinktas gerimas.
 ir gerimo nepasirinko.
 */
+
+
+// KREPSINIS
+
+// Kiekviena komanda turi savo atskiras formas, kuriu deka yra registruojami pelnyti taskai
+
+// Kiekviena karta pelnius tasku, tai turi atsispindeti lentoje
+
+const lentaDOM = document.querySelector('.lenta');
+const namuRezultatasDOM = lentaDOM.querySelector('[data-komanda="namu"]');  //butent nuo lentaDOM pradeda ieskot, o ne nuo viso document
+const sveciuRezultatasDOM = lentaDOM.querySelector('[data-komanda="sveciu"]');
+
+const aiksteleDOM = document.querySelector('.aikstele');
+
+const namuKomandaDOM = aiksteleDOM.querySelector('[data-komanda="namu"]');
+const namuTaskaiDOM = namuKomandaDOM.querySelectorAll('button');   
+
+const sveciuKomandaDOM = aiksteleDOM.querySelector('[data-komanda="sveciu"]');
+const sveciuTaskaiDOM = sveciuKomandaDOM.querySelectorAll('button');   
+
+// jei nori visiems mygtukams sukurt ivyki, bet tie mygtukai yra array
+// kaip is array istraukti atskirus button
+
+let namuRezultatas = 0;
+let sveciuRezultatas = 0;
+
+for (let i = 0; i < 3; i++) {           // galima naudoti ir namutaskaiDOM.length, bet mes tiksliai zinome, kad daugiau nei 3 nebus
+    namuTaskaiDOM[i].addEventListener('click', () => {          //bet namuTaskaiDOm panaudojame cia
+        namuRezultatas += i + 1;
+        namuRezultatasDOM.innerText = namuRezultatas;
+    })
+
+    sveciuTaskaiDOM[i].addEventListener('click', () => {          
+        sveciuRezultatas += i + 1;
+        sveciuRezultatasDOM.innerText = sveciuRezultatas;
+    })
+}
