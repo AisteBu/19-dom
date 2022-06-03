@@ -175,32 +175,72 @@ ir gerimo nepasirinko.
 
 // Kiekviena karta pelnius tasku, tai turi atsispindeti lentoje
 
-const lentaDOM = document.querySelector('.lenta');
-const namuRezultatasDOM = lentaDOM.querySelector('[data-komanda="namu"]');  //butent nuo lentaDOM pradeda ieskot, o ne nuo viso document
-const sveciuRezultatasDOM = lentaDOM.querySelector('[data-komanda="sveciu"]');
+// const lentaDOM = document.querySelector('.lenta');
+// const namuRezultatasDOM = lentaDOM.querySelector('[data-komanda="namu"]');  //butent nuo lentaDOM pradeda ieskot, o ne nuo viso document
+// const sveciuRezultatasDOM = lentaDOM.querySelector('[data-komanda="sveciu"]');
 
-const aiksteleDOM = document.querySelector('.aikstele');
+// const aiksteleDOM = document.querySelector('.aikstele');
 
-const namuKomandaDOM = aiksteleDOM.querySelector('[data-komanda="namu"]');
-const namuTaskaiDOM = namuKomandaDOM.querySelectorAll('button');   
+// const namuKomandaDOM = aiksteleDOM.querySelector('[data-komanda="namu"]');
+// const namuTaskaiDOM = namuKomandaDOM.querySelectorAll('button');   
 
-const sveciuKomandaDOM = aiksteleDOM.querySelector('[data-komanda="sveciu"]');
-const sveciuTaskaiDOM = sveciuKomandaDOM.querySelectorAll('button');   
+// const sveciuKomandaDOM = aiksteleDOM.querySelector('[data-komanda="sveciu"]');
+// const sveciuTaskaiDOM = sveciuKomandaDOM.querySelectorAll('button');   
 
-// jei nori visiems mygtukams sukurt ivyki, bet tie mygtukai yra array
-// kaip is array istraukti atskirus button
+// // jei nori visiems mygtukams sukurt ivyki, bet tie mygtukai yra array
+// // kaip is array istraukti atskirus button
 
-let namuRezultatas = 0;
-let sveciuRezultatas = 0;
+// let namuRezultatas = 0;
+// let sveciuRezultatas = 0;
 
-for (let i = 0; i < 3; i++) {           // galima naudoti ir namutaskaiDOM.length, bet mes tiksliai zinome, kad daugiau nei 3 nebus
-    namuTaskaiDOM[i].addEventListener('click', () => {          //bet namuTaskaiDOm panaudojame cia
-        namuRezultatas += i + 1;
-        namuRezultatasDOM.innerText = namuRezultatas;
-    })
+// for (let i = 0; i < 3; i++) {           // galima naudoti ir namutaskaiDOM.length, bet mes tiksliai zinome, kad daugiau nei 3 nebus
+//     namuTaskaiDOM[i].addEventListener('click', () => {          //bet namuTaskaiDOm panaudojame cia
+//         namuRezultatas += i + 1;
+//         namuRezultatasDOM.innerText = namuRezultatas;
+//     })
 
-    sveciuTaskaiDOM[i].addEventListener('click', () => {          
-        sveciuRezultatas += i + 1;
-        sveciuRezultatasDOM.innerText = sveciuRezultatas;
-    })
+//     sveciuTaskaiDOM[i].addEventListener('click', () => {          
+//         sveciuRezultatas += i + 1;
+//         sveciuRezultatasDOM.innerText = sveciuRezultatas;
+//     })
+// }
+
+// Susirandame `div class="lenta">` elementa
+
+// Sukurti funkcija pavadinimu `generuotiLenta`, kuri priima selector'iu ir skaiciu. 
+
+// Selector'ius nurodo, kuriame elemente reikes istatyti sugeneruota funkcijos turini
+
+// Priimamas skaicius gali buti tik teigiamas sveikasis skaicius (jokiu begalybiu)
+
+// Funkcijos uzduotis, pagal duota skaiciuka sugeneruoti `<div>` elementu sarasa ir kiekviename ju irasyti eiles numeri(1, 2, 3...)
+
+// t.y. kad lentoje atsirastu div'ai  su juose nurodytais skaiciukais nuo 1 iki tiek kiek pasakysit
+
+
+function generuotiLenta(selector, count) {      // count - kiek elementu reik generuoti siai funkcijai, vietoj number
+const DOM = document.querySelector(selector);
+if (!DOM) {                                         // mini apsauga, kuria pasidarem patys
+    console.error('ERROR: nerastas elementas');
+    return false;
 }
+
+if (count < 0 ||
+    count % 1 !== 0) {        // ieskom, ar tai sveikasis skaicius. Paimtas skaicius, padalintas is 1. Jei jo rezultatas , liekana ne 0
+    console.error('ERROR: skaicius turi buti teigiamas ir sveikasis');
+    return false;
+}
+
+let HTML = ''; // Funkcijos uzduotis, pagal duota skaiciuka sugeneruoti `<div>` elementu sarasa  LET, nes  noresime vis kazka keisti
+for (let i = 1; i <= count; i++) {      // pradedam nuo 1 iki norimo skaiciaus
+    HTML += `<div>${i}</div>`;
+}
+
+DOM.innerHTML = HTML;       // Pasieme lenta ir istate div
+}
+
+generuotiLenta('.lenta', 8);   // galima ir 'div' ir 'div.lenta' ir '.lenta'
+
+
+
+
