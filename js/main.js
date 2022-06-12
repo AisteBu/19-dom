@@ -218,29 +218,89 @@ ir gerimo nepasirinko.
 // t.y. kad lentoje atsirastu div'ai  su juose nurodytais skaiciukais nuo 1 iki tiek kiek pasakysit
 
 
-function generuotiLenta(selector, count) {      // count - kiek elementu reik generuoti siai funkcijai, vietoj number
-const DOM = document.querySelector(selector);
-if (!DOM) {                                         // mini apsauga, kuria pasidarem patys
-    console.error('ERROR: nerastas elementas');
-    return false;
+// function generuotiLenta(selector, count) {      // count - kiek elementu reik generuoti siai funkcijai, vietoj number
+// const DOM = document.querySelector(selector);
+// if (!DOM) {                                         // mini apsauga, kuria pasidarem patys
+//     console.error('ERROR: nerastas elementas');
+//     return false;
+// }
+
+// if (count < 0 ||
+//     count % 1 !== 0) {        // ieskom, ar tai sveikasis skaicius. Paimtas skaicius, padalintas is 1. Jei jo rezultatas , liekana ne 0
+//     console.error('ERROR: skaicius turi buti teigiamas ir sveikasis');
+//     return false;
+// }
+
+// let HTML = ''; // Funkcijos uzduotis, pagal duota skaiciuka sugeneruoti `<div>` elementu sarasa  LET, nes  noresime vis kazka keisti
+// for (let i = 1; i <= count; i++) {      // pradedam nuo 1 iki norimo skaiciaus
+//     HTML += `<div>${i}</div>`;
+// }
+
+// DOM.innerHTML = HTML;       // Pasieme lenta ir istate div
+// }
+
+// generuotiLenta('.lenta', 8);   // galima ir 'div' ir 'div.lenta' ir '.lenta'
+
+
+
+
+// Sukurti funkcija pavadinimu `generuotiSeocials`, kuri priima selector'iu ir sarasa fontAwesome ikonu klasiu. 
+
+// Selector'ius nurodo, kuriame elemente reikes istatyti sugeneruota funkcijos turini
+
+// Priimamas ikonu sarasas turi buti ne tuscias array
+
+// Funkcijos uzduotis, pagal duota ikonu sarasa sugeneruoti `<i>` elementus, kuriuose `class` atribute bus nurodytos atitinkamu fontAwesome ikonu klasiu pavadinimai
+
+// Visas sugeneruotas tekstinis HTML turi buti istatytas i nurodyta selector`iaus elementa
+
+function generuotiSocials(selector, iconsList) {                // 1. pradzioje (pirma) priimame parametrus
+    // yra trys pagrindiniai zingsniai:
+    // 1. validation
+    if (typeof selector !== 'string' ||         // (sesta) pirmiausia visada klausti tipu
+        selector === '') {      
+        console.error('ERROR: selector turi buti ne tuscias stringas');
+        return false;
+    }
+    const DOM = document.querySelector(selector); // susirandame DOM vieta, narsykleje tam tikra elementa pagal pateikta selector
+    if (!DOM) {
+        console.error('ERROR: pagal pateikta selector nepavyko rasti jokio DOM elemento');
+        return false;
+    }
+    if (!Array.isArray(iconsList) ||
+        iconsList.length === 0) {
+        console.error('ERROR: iconsList turi buti ne tuscias array');
+        return false;
+    }
+
+    // 2. logic
+    let HTML = ''; // (antra) Sugeneruojam HTML, kuris tures buti istatytas i tinkama vieta, ir taip mes gausime galutini rezultata
+    const availableIcons = ['facebook', 'twitter', 'linkedin', 'instagram', 'pinterest'];
+
+    for (const icon of iconsList)  // (penkta)
+        if (typeof icon === 'string' &&
+        icon !== '' &&
+        availableIcons.includes(icon)) {    
+        HTML += `<i class="fa fa-${icon}"></i>`; // (ketvirta)
+        }
+
+
+    // tarpinis. post-logic validation
+    if (HTML === '') {
+        console.error('ERROR: iconsList turi tureti bent viena elementa, kuris butu ne tuscias tekstas');
+        return false;
+    }
+    // for (let i = 0; i < iconsList.length; i++) {     // visas sitas atitikmuo virsutiniam for of
+    //     const icon = iconsList[i];
+    //     HTML += `<i> class="fa fa-${icon}</i>`;
+    // }
+   
+    // 3. result return
+    DOM.innerHTML = HTML; // (trecia) kreipiames i ta elementa. Vidinis HTML bus lygus tam, kuri as sukonstruosiu   
+
 }
 
-if (count < 0 ||
-    count % 1 !== 0) {        // ieskom, ar tai sveikasis skaicius. Paimtas skaicius, padalintas is 1. Jei jo rezultatas , liekana ne 0
-    console.error('ERROR: skaicius turi buti teigiamas ir sveikasis');
-    return false;
-}
+const icons = ['facebook', 'instagram', 'twitter', 'linkedin'];
 
-let HTML = ''; // Funkcijos uzduotis, pagal duota skaiciuka sugeneruoti `<div>` elementu sarasa  LET, nes  noresime vis kazka keisti
-for (let i = 1; i <= count; i++) {      // pradedam nuo 1 iki norimo skaiciaus
-    HTML += `<div>${i}</div>`;
-}
-
-DOM.innerHTML = HTML;       // Pasieme lenta ir istate div
-}
-
-generuotiLenta('.lenta', 8);   // galima ir 'div' ir 'div.lenta' ir '.lenta'
-
-
-
+generuotiSocials('.socials', icons)
 
