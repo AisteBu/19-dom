@@ -254,53 +254,113 @@ ir gerimo nepasirinko.
 
 // Visas sugeneruotas tekstinis HTML turi buti istatytas i nurodyta selector`iaus elementa
 
-function generuotiSocials(selector, iconsList) {                // 1. pradzioje (pirma) priimame parametrus
-    // yra trys pagrindiniai zingsniai:
-    // 1. validation
-    if (typeof selector !== 'string' ||         // (sesta) pirmiausia visada klausti tipu
-        selector === '') {      
-        console.error('ERROR: selector turi buti ne tuscias stringas');
-        return false;
-    }
-    const DOM = document.querySelector(selector); // susirandame DOM vieta, narsykleje tam tikra elementa pagal pateikta selector
-    if (!DOM) {
-        console.error('ERROR: pagal pateikta selector nepavyko rasti jokio DOM elemento');
-        return false;
-    }
-    if (!Array.isArray(iconsList) ||
-        iconsList.length === 0) {
-        console.error('ERROR: iconsList turi buti ne tuscias array');
-        return false;
-    }
+// function generuotiSocials(selector, iconsList) {                // 1. pradzioje (pirma) priimame parametrus
+//     // yra trys pagrindiniai zingsniai:
+//     // 1. validation
+//     if (typeof selector !== 'string' ||         // (sesta) pirmiausia visada klausti tipu
+//         selector === '') {      
+//         console.error('ERROR: selector turi buti ne tuscias stringas');
+//         return false;
+//     }
+//     const DOM = document.querySelector(selector); // susirandame DOM vieta, narsykleje tam tikra elementa pagal pateikta selector
+//     if (!DOM) {
+//         console.error('ERROR: pagal pateikta selector nepavyko rasti jokio DOM elemento');
+//         return false;
+//     }
+//     if (!Array.isArray(iconsList) ||
+//         iconsList.length === 0) {
+//         console.error('ERROR: iconsList turi buti ne tuscias array');
+//         return false;
+//     }
 
-    // 2. logic
-    let HTML = ''; // (antra) Sugeneruojam HTML, kuris tures buti istatytas i tinkama vieta, ir taip mes gausime galutini rezultata
-    const availableIcons = ['facebook', 'twitter', 'linkedin', 'instagram', 'pinterest'];
+//     // 2. logic
+//     let HTML = ''; // (antra) Sugeneruojam HTML, kuris tures buti istatytas i tinkama vieta, ir taip mes gausime galutini rezultata
+//     const availableIcons = ['facebook', 'twitter', 'linkedin', 'instagram', 'pinterest'];
 
-    for (const icon of iconsList)  // (penkta)
-        if (typeof icon === 'string' &&
-        icon !== '' &&
-        availableIcons.includes(icon)) {    
-        HTML += `<i class="fa fa-${icon}"></i>`; // (ketvirta)
-        }
+//     for (const icon of iconsList)  // (penkta)
+//         if (typeof icon === 'string' &&
+//         icon !== '' &&
+//         availableIcons.includes(icon)) {    
+//         HTML += `<i class="fa fa-${icon}"></i>`; // (ketvirta)
+//         }
 
 
-    // tarpinis. post-logic validation
-    if (HTML === '') {
-        console.error('ERROR: iconsList turi tureti bent viena elementa, kuris butu ne tuscias tekstas');
-        return false;
-    }
-    // for (let i = 0; i < iconsList.length; i++) {     // visas sitas atitikmuo virsutiniam for of
-    //     const icon = iconsList[i];
-    //     HTML += `<i> class="fa fa-${icon}</i>`;
-    // }
+//     // tarpinis. post-logic validation
+//     if (HTML === '') {
+//         console.error('ERROR: iconsList turi tureti bent viena elementa, kuris butu ne tuscias tekstas');
+//         return false;
+//     }
+//     // for (let i = 0; i < iconsList.length; i++) {     // visas sitas atitikmuo virsutiniam for of
+//     //     const icon = iconsList[i];
+//     //     HTML += `<i> class="fa fa-${icon}</i>`;
+//     // }
    
-    // 3. result return
-    DOM.innerHTML = HTML; // (trecia) kreipiames i ta elementa. Vidinis HTML bus lygus tam, kuri as sukonstruosiu   
+//     // 3. result return
+//     DOM.innerHTML = HTML; // (trecia) kreipiames i ta elementa. Vidinis HTML bus lygus tam, kuri as sukonstruosiu   
 
+// }
+
+// const icons = ['facebook', 'instagram', 'twitter', 'linkedin'];
+
+// generuotiSocials('.socials', icons)
+
+
+
+// Sukurti funkcija pavadinimu `renderNav`, kuri priima selector'iu ir sarasa informacijos apie meniu nuorodas. 
+
+// Selector'ius nurodo, kuriame elemente reikes istatyti sugeneruota funkcijos turini
+
+// Priimamas meniu informacijos sarasas turi buti ne tuscias array
+
+// Funkcijos uzduotis, pagal duota meniu informacijos sarasa sugeneruoti `<nav>`  ir `<a>` elementus
+
+// Visas sugeneruotas tekstinis HTML turi buti istatytas i nurodyta selector`iaus elementa
+
+// Pradinis HTML yra:
+
+// <header>
+//    <img src="#" alt="Logo" class="logo">
+// </header>
+
+// Siektinas HTML yra:
+//    <header>
+//        <img src="#" alt="Logo" class="logo">
+//        <nav>
+//            <a href="#">Home</a>
+//            <a href="#">Services</a>
+//            <a href="#">About us</a>
+//            <a href="#">Contact us</a>
+//        </nav>
+//    </header>
+
+function renderNav(selector, data) {        // data - duomenys
+    const DOM = document.querySelector(selector); 
+    let HTML = '';
+
+    for (const menuItem of data)   {     // vietoj sitos eilues, galime rasyti iprasta for arba for-in
+        HTML += `<a href="${menuItem.href}">${menuItem.title}</a>`;
+    }
+
+    DOM.insertAdjacentHTML('beforeend', `<nav>${HTML}</nav>`);               // galima rasyti ir taip => DOM.innerHTML += HTML;
 }
 
-const icons = ['facebook', 'instagram', 'twitter', 'linkedin'];
+const menu = [
+    {
+        href: '#',
+        title: 'Home'
+    },
+    {
+        href: '#',
+        title: 'Services'
+    },
+    {
+        href: '#',
+        title: 'About us'
+    },
+    {
+        href: '#',
+        title: 'Contact us'
+    }
+];
 
-generuotiSocials('.socials', icons)
-
+renderNav('header', menu)
