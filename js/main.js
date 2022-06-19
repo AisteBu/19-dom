@@ -333,34 +333,72 @@ ir gerimo nepasirinko.
 //        </nav>
 //    </header>
 
-function renderNav(selector, data) {        // data - duomenys
-    const DOM = document.querySelector(selector); 
-    let HTML = '';
+// function renderNav(selector, data) {        // data - duomenys
+//     const DOM = document.querySelector(selector); 
+//     let HTML = '';
 
-    for (const menuItem of data)   {     // vietoj sitos eilues, galime rasyti iprasta for arba for-in
-        HTML += `<a href="${menuItem.href}">${menuItem.title}</a>`;
-    }
+//     for (const menuItem of data)   {     // vietoj sitos eilutes, galime rasyti iprasta for arba for-in
+//         HTML += `<a href="${menuItem.href}">${menuItem.title}</a>`;
+//     }
 
-    DOM.insertAdjacentHTML('beforeend', `<nav>${HTML}</nav>`);               // galima rasyti ir taip => DOM.innerHTML += HTML;
+//     DOM.insertAdjacentHTML('beforeend', `<nav>${HTML}</nav>`);               // galima rasyti ir taip => DOM.innerHTML += HTML;
+// }
+
+// const menu = [
+//     {
+//         href: '#',
+//         title: 'Home'
+//     },
+//     {
+//         href: '#',
+//         title: 'Services'
+//     },
+//     {
+//         href: '#',
+//         title: 'About us'
+//     },
+//     {
+//         href: '#',
+//         title: 'Contact us'
+//     }
+// ];
+
+// renderNav('header', menu)
+
+
+
+// Reikia sugeneruoti `<select>` formos elementa, kuriame butu isvardintos tokios reiksmes: zuikis, barsukas, lape, vilkas, sernas, stirna, vovere.
+
+// Sugeneruotas `<select>` elementas turi buti iterptas tarp formos `<label>` ir `<button>` elementu
+
+// Paspaudus submit mygtuka, pasirinkta `<select>` reiksme turi buti atvaizduota `.option` elemente
+
+// https://www.w3schools.com/tags/tag_select.asp
+
+// naujas content`as generuosis zemiau label`io
+
+function renderSelect(selector, dataList) {                      // 1. mums reikia sugeneruoti select`a, todel issikvieciam funkcija:
+// susirandame vieta, kur zemiau kurio elemento tures nugulti naujas turinys
+    const DOM = document.querySelector(selector); // 4. funkcija ieskos vietos, kur nores nupiesti - dirbti
+
+// susigeneruojame visus galimus seect pasirinkimus
+let optionsHTML = '';
+for (const dataItem of dataList) {
+    optionsHTML += `<option value="${dataItem}">${dataItem}</option>`;
 }
 
-const menu = [
-    {
-        href: '#',
-        title: 'Home'
-    },
-    {
-        href: '#',
-        title: 'Services'
-    },
-    {
-        href: '#',
-        title: 'About us'
-    },
-    {
-        href: '#',
-        title: 'Contact us'
-    }
-];
+// sukonstruojame galutini select elementa ir istatome i reikiama vieta
+const HTML = `<select>${optionsHTML}</select>`;       // 6. susigeneruojame turini. kadangi pradzioje neturim, padarom tuscias kabutes   // 9. i `` kabutes nukopijuojame is interneto example select-option
+DOM.insertAdjacentHTML('afterend', HTML); // 7. kai tures HTML, ji istatys i DOM     // 8.insertinam kas, kur ir kaip
+} 
 
-renderNav('header', menu)
+const animals = ['zuikis', 'barsukas', 'lapė', 'vilkas', 'šernas', 'stirna', 'voverė'];   // 3. susikonstruojame const
+renderSelect('label', animals);                     // 2. poto renderinam, o kaip mes tai darysim - turim iskviesti ta  pacia funkcija
+
+const selectDOM = document.querySelector('select');
+const buttonDOM = document.querySelector('button'); // 5. susirandame mygtuka. kai ji paspausim, funkcija tures dirbt
+const optionDOM = document.querySelector('.option');
+buttonDOM.addEventListener('click', (event) => {
+    event.preventDefault();
+    optionDOM.innerText = selectDOM.value;
+})
