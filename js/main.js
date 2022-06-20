@@ -366,7 +366,7 @@ ir gerimo nepasirinko.
 // renderNav('header', menu)
 
 
-
+// **KAI KURIAMAS TIK VIENAS `select` ELEMENTAS**
 // Reikia sugeneruoti `<select>` formos elementa, kuriame butu isvardintos tokios reiksmes: zuikis, barsukas, lape, vilkas, sernas, stirna, vovere.
 
 // Sugeneruotas `<select>` elementas turi buti iterptas tarp formos `<label>` ir `<button>` elementu
@@ -377,28 +377,66 @@ ir gerimo nepasirinko.
 
 // naujas content`as generuosis zemiau label`io
 
-function renderSelect(selector, dataList) {                      // 1. mums reikia sugeneruoti select`a, todel issikvieciam funkcija:
-// susirandame vieta, kur zemiau kurio elemento tures nugulti naujas turinys
-    const DOM = document.querySelector(selector); // 4. funkcija ieskos vietos, kur nores nupiesti - dirbti
+// function renderSelect(selector, dataList) {                      // 1. mums reikia sugeneruoti select`a, todel issikvieciam funkcija:
+// // susirandame vieta, kur zemiau kurio elemento tures nugulti naujas turinys
+//     const DOM = document.querySelector(selector); // 4. funkcija ieskos vietos, kur nores nupiesti - dirbti
 
-// susigeneruojame visus galimus seect pasirinkimus
-let optionsHTML = '';
-for (const dataItem of dataList) {
-    optionsHTML += `<option value="${dataItem}">${dataItem}</option>`;
-}
+// // susigeneruojame visus galimus seect pasirinkimus
+// let optionsHTML = '';
+// for (const dataItem of dataList) {
+//     optionsHTML += `<option value="${dataItem}">${dataItem}</option>`;
+// }
 
-// sukonstruojame galutini select elementa ir istatome i reikiama vieta
-const HTML = `<select>${optionsHTML}</select>`;       // 6. susigeneruojame turini. kadangi pradzioje neturim, padarom tuscias kabutes   // 9. i `` kabutes nukopijuojame is interneto example select-option
-DOM.insertAdjacentHTML('afterend', HTML); // 7. kai tures HTML, ji istatys i DOM     // 8.insertinam kas, kur ir kaip
-} 
+// // sukonstruojame galutini select elementa ir istatome i reikiama vieta
+// const HTML = `<select>${optionsHTML}</select>`;       // 6. susigeneruojame turini. kadangi pradzioje neturim, padarom tuscias kabutes   // 9. i `` kabutes nukopijuojame is interneto example select-option
+// DOM.insertAdjacentHTML('afterend', HTML); // 7. kai tures HTML, ji istatys i DOM     // 8.insertinam kas, kur ir kaip
+// } 
 
-const animals = ['zuikis', 'barsukas', 'lapė', 'vilkas', 'šernas', 'stirna', 'voverė'];   // 3. susikonstruojame const
-renderSelect('label', animals);                     // 2. poto renderinam, o kaip mes tai darysim - turim iskviesti ta  pacia funkcija
+// const animals = ['zuikis', 'barsukas', 'lapė', 'vilkas', 'šernas', 'stirna', 'voverė'];   // 3. susikonstruojame const
+// renderSelect('label', animals);                     // 2. poto renderinam, o kaip mes tai darysim - turim iskviesti ta  pacia funkcija
 
-const selectDOM = document.querySelector('select');
-const buttonDOM = document.querySelector('button'); // 5. susirandame mygtuka. kai ji paspausim, funkcija tures dirbt
-const optionDOM = document.querySelector('.option');
-buttonDOM.addEventListener('click', (event) => {
-    event.preventDefault();
-    optionDOM.innerText = selectDOM.value;
+// const selectDOM = document.querySelector('select');
+// const buttonDOM = document.querySelector('button'); // 5. susirandame mygtuka. kai ji paspausim, funkcija tures dirbt
+// const optionDOM = document.querySelector('.option');
+// buttonDOM.addEventListener('click', (event) => {
+//     event.preventDefault();
+//     optionDOM.innerText = selectDOM.value;
+// })
+
+
+// **KAI KURIAMAS _NE_ VIENAS `select` ELEMENTAS**
+
+ function renderSelect(selector, dataList, id) {            //  selector - tai label`is          
+    const DOM = document.querySelector(selector); 
+    
+    let optionsHTML = '';
+    for (const dataItem of dataList) {
+        optionsHTML += `<option value="${dataItem}">${dataItem}</option>`;
+    }
+    
+    const HTML = `<select id="${id}">${optionsHTML}</select>`;       
+    DOM.insertAdjacentHTML('afterend', HTML); 
+    } 
+    
+    const animals = ['zuikis', 'barsukas', 'lapė', 'vilkas', 'šernas', 'stirna', 'voverė'];   
+    renderSelect('label[for="animal"]', animals, 'animal');   
+    
+    const vegetables = ['morka', 'svogūnas', 'bulvė'];
+    renderSelect('label[for="vegetable"]', vegetables,'vegetable'); 
+    
+    const allSelectDOM = document.querySelectorAll('select');
+    const buttonDOM = document.querySelector('button'); 
+    const optionDOM = document.querySelector('.option');
+    buttonDOM.addEventListener('click', (event) => {
+        event.preventDefault();
+        
+        const pasirinkimai = [];
+        for (const selectDOM of allSelectDOM) {
+            pasirinkimai.push(selectDOM.value);
+        }
+
+        // const pasirinkimai = Array.from(allSelectDOM).map(DOM => DOM.value);
+        
+        const pasirinkimuZinute =  pasirinkimai.join(', ');
+        optionDOM.innerText = pasirinkimuZinute;
 })
