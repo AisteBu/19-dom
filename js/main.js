@@ -406,37 +406,67 @@ ir gerimo nepasirinko.
 
 // **KAI KURIAMAS _NE_ VIENAS `select` ELEMENTAS**
 
- function renderSelect(selector, dataList, id) {            //  selector - tai label`is          
-    const DOM = document.querySelector(selector); 
+//  function renderSelect(selector, dataList, id) {            //  selector - tai label`is          
+//     const DOM = document.querySelector(selector); 
     
-    let optionsHTML = '';
-    for (const dataItem of dataList) {
-        optionsHTML += `<option value="${dataItem}">${dataItem}</option>`;
-    }
+//     let optionsHTML = '';
+//     for (const dataItem of dataList) {
+//         optionsHTML += `<option value="${dataItem}">${dataItem}</option>`;
+//     }
     
-    const HTML = `<select id="${id}">${optionsHTML}</select>`;       
-    DOM.insertAdjacentHTML('afterend', HTML); 
-    } 
+//     const HTML = `<select id="${id}">${optionsHTML}</select>`;       
+//     DOM.insertAdjacentHTML('afterend', HTML); 
+//     } 
     
-    const animals = ['zuikis', 'barsukas', 'lapė', 'vilkas', 'šernas', 'stirna', 'voverė'];   
-    renderSelect('label[for="animal"]', animals, 'animal');   
+//     const animals = ['zuikis', 'barsukas', 'lapė', 'vilkas', 'šernas', 'stirna', 'voverė'];   
+//     renderSelect('label[for="animal"]', animals, 'animal');   
     
-    const vegetables = ['morka', 'svogūnas', 'bulvė'];
-    renderSelect('label[for="vegetable"]', vegetables,'vegetable'); 
+//     const vegetables = ['morka', 'svogūnas', 'bulvė'];
+//     renderSelect('label[for="vegetable"]', vegetables,'vegetable'); 
     
-    const allSelectDOM = document.querySelectorAll('select');
-    const buttonDOM = document.querySelector('button'); 
-    const optionDOM = document.querySelector('.option');
-    buttonDOM.addEventListener('click', (event) => {
-        event.preventDefault();
+//     const allSelectDOM = document.querySelectorAll('select');
+//     const buttonDOM = document.querySelector('button'); 
+//     const optionDOM = document.querySelector('.option');
+//     buttonDOM.addEventListener('click', (event) => {
+//         event.preventDefault();
         
-        const pasirinkimai = [];
-        for (const selectDOM of allSelectDOM) {
-            pasirinkimai.push(selectDOM.value);
-        }
+//         const pasirinkimai = [];
+//         for (const selectDOM of allSelectDOM) {
+//             pasirinkimai.push(selectDOM.value);
+//         }
 
-        // const pasirinkimai = Array.from(allSelectDOM).map(DOM => DOM.value);
+//         // const pasirinkimai = Array.from(allSelectDOM).map(DOM => DOM.value);
         
-        const pasirinkimuZinute =  pasirinkimai.join(', ');
-        optionDOM.innerText = pasirinkimuZinute;
+//         const pasirinkimuZinute =  pasirinkimai.join(', ');
+//         optionDOM.innerText = pasirinkimuZinute;
+// })
+
+
+// Is formos reikia istraukti parasyta skaiciu, kuris nurodo norimos generuotinos sachmatu lentos dydi ir ta skaiciu reikia irasyti i elementa `.option`, bet formatas turi buti `NxN`, pvz.: 4x4, 8x8 ir t.t. (ivesties lauke parasius skaiciu 4, skliaustuose turi buti 4x4)
+
+const inputDOM = document.getElementById('board');   // is kur paimame skaiciu. //sitas budas greitesnis
+// const inputDOM = document.querySelector('#board'); //virsutinio atitikmuo
+const optionDOM = document.querySelector('.option');
+const buttonDOM = document.querySelector('button');  
+const boardDOM = document.querySelector('.board');
+
+buttonDOM.addEventListener('click', (event) => {
+    event.preventDefault();
+    const n = parseInt(inputDOM.value); // konvertuojam input teksta i artimiausia galima teisinga skaitini atitikmeni
+    optionDOM.textContent = `${n}x${n}`;
+    renderBoard(boardDOM, n);
 })
+
+// Pagal pasirinkta lentos dydi, reikia sugeneruoti reikiama kieki `.row` elementu. Atsizvelgiant i ju kieki, kiekvienos eilutes dydis turi buti tinkamas, jog visos tilptu i tevini elementa  `.board`
+
+// lenta bus piesiama tada, kai bus paspaustas mygtukas
+function renderBoard(DOMelement, size) {
+    const rowHeight = 100 / size; // const eina pirmiau nei let
+    let HTML = ''; // zinau, kad man reikes konstruoti HTML, todel pradzioje pasirasau taip
+
+    for (let i = 0; i < size; i++) {
+        HTML += `<div class="row" style="height: ${rowHeight}%;"></div>`;
+    }
+
+    DOMelement.innerHTML = HTML;
+}
