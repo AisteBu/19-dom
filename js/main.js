@@ -460,12 +460,33 @@ buttonDOM.addEventListener('click', (event) => {
 // Pagal pasirinkta lentos dydi, reikia sugeneruoti reikiama kieki `.row` elementu. Atsizvelgiant i ju kieki, kiekvienos eilutes dydis turi buti tinkamas, jog visos tilptu i tevini elementa  `.board`
 
 // lenta bus piesiama tada, kai bus paspaustas mygtukas
-function renderBoard(DOMelement, size) {
-    const rowHeight = 100 / size; // const eina pirmiau nei let
-    let HTML = ''; // zinau, kad man reikes konstruoti HTML, todel pradzioje pasirasau taip
+// function renderBoard(DOMelement, size) {
+//     const rowHeight = 100 / size; // const eina pirmiau nei let
+//     let HTML = ''; // zinau, kad man reikes konstruoti HTML, todel pradzioje pasirasau taip
+    
+//     for (let i = 0; i < size; i++) {
+//         HTML += `<div class="row" style="height: ${rowHeight}%;"></div>`;
+//     }
 
-    for (let i = 0; i < size; i++) {
-        HTML += `<div class="row" style="height: ${rowHeight}%;"></div>`;
+//     DOMelement.innerHTML = HTML;
+// }
+
+// Pagal pasirinkta lentos dydi, reikia sugeneruoti reikiama kieki `.cell` elementu. Atsizvelgiant i ju kieki, kiekvieno langelio dydis turi buti tinkamas, jog visi tilptu i tevini elementa  `.row`
+
+function renderBoard(DOMelement, size) {
+    const elementSize = 100 / size; 
+    // const cellHTML = `<div class="cell" style="width: ${elementSize}%;"></div>`.repeat(size);
+    // const rowHTML = `<div class="row" style="height: ${elementSize}%;">${cellHTML}</div>`;
+    // DOMelement.innerHTML = rowHTML.repeat(size);
+
+    let cellHTML = '';
+    for (let c = 0; c < size; c++) {
+        cellHTML += `<div class="cell" style="width: ${elementSize}%;"></div>`;
+    }
+
+    let HTML = '';
+    for (let row = 0; row < size; row++) {
+        HTML += `<div class="row" style="height: ${elementSize}%;">${cellHTML}</div>`;
     }
 
     DOMelement.innerHTML = HTML;

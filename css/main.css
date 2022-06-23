@@ -15,7 +15,7 @@ form {
     flex-direction: column;
     gap: 20px;
 }
-select, 
+input, 
 button {
     padding: 5px 20px;
     font-size: 30px;
@@ -25,14 +25,14 @@ button {
     display: inline-block;
     width: 400px;
     height: 400px;
-    /* padding: 10px; */
-    box-shadow: 0 0 10px #005 ;   /* kad matytume */
+    padding: 10px;
+    box-shadow: 0 0 10px #0005 ;   /* kad matytume */
 }
 .row {
     /* aukscio negalime rasyt, nes nezinome, kiek bus eiluciu, todel height kursime html`e */
     display: inline-block;
     width: 100%;
-    /* padding: 10px; */
+    padding: 10px;
     border: 1px solid orange ;    /* solid yra vientisa linija */
 }
 .cell {
