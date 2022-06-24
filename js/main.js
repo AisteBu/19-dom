@@ -473,19 +473,55 @@ buttonDOM.addEventListener('click', (event) => {
 
 // Pagal pasirinkta lentos dydi, reikia sugeneruoti reikiama kieki `.cell` elementu. Atsizvelgiant i ju kieki, kiekvieno langelio dydis turi buti tinkamas, jog visi tilptu i tevini elementa  `.row`
 
+// function renderBoard(DOMelement, size) {
+//     const elementSize = 100 / size; 
+//     // const cellHTML = `<div class="cell" style="width: ${elementSize}%;"></div>`.repeat(size);
+//     // const rowHTML = `<div class="row" style="height: ${elementSize}%;">${cellHTML}</div>`;
+//     // DOMelement.innerHTML = rowHTML.repeat(size);
+
+//     let cellHTML = '';
+//     let HTML = '';
+
+//     for (let c = 0; c < size; c++) {
+//         cellHTML += `<div class="cell" style="width: ${elementSize}%;"></div>`;
+//     }
+
+//     for (let row = 0; row < size; row++) {
+//         HTML += `<div class="row" style="height: ${elementSize}%;">${cellHTML}</div>`;
+//     }
+
+//     DOMelement.innerHTML = HTML;
+// }
+
+// Kiekvienoje eiluteje langeliai turi buti piesiami pakaitomis. Pirmoje - balta/juoda, antroje - juoda/balta ir t.t.
+
+
 function renderBoard(DOMelement, size) {
     const elementSize = 100 / size; 
-    // const cellHTML = `<div class="cell" style="width: ${elementSize}%;"></div>`.repeat(size);
-    // const rowHTML = `<div class="row" style="height: ${elementSize}%;">${cellHTML}</div>`;
-    // DOMelement.innerHTML = rowHTML.repeat(size);
+    let whiteBlackCellHTML = '';
+    let BlackWhiteCellHTML = '';
+    let HTML = '';
+    const whiteCellHTML = `<div class="cell" style="width: ${elementSize}%; background-color: white;"></div>`;
+    const blackCellHTML = `<div class="cell" style="width: ${elementSize}%; background-color: black;"></div>`;
 
-    let cellHTML = '';
     for (let c = 0; c < size; c++) {
-        cellHTML += `<div class="cell" style="width: ${elementSize}%;"></div>`;
+        if (c % 2 === 0) {     // nustatome ar lyginis skaicius, jei nelyginis tada rasytume (c % 2 === 1) 
+            whiteBlackCellHTML += whiteCellHTML;
+            BlackWhiteCellHTML += blackCellHTML;
+        } else {
+            whiteBlackCellHTML += blackCellHTML;
+            BlackWhiteCellHTML += whiteCellHTML;
+        }
     }
 
-    let HTML = '';
+    let cellHTML = '';
     for (let row = 0; row < size; row++) {
+        // if (row % 2 === 0) {
+        //     cellHTML = whiteBlackCellHTML;
+        // } else {
+        //     cellHTML = BlackWhiteCellHTML;
+        // }
+        cellHTML = row % 2 === 0 ? whiteBlackCellHTML : BlackWhiteCellHTML;
         HTML += `<div class="row" style="height: ${elementSize}%;">${cellHTML}</div>`;
     }
 

@@ -25,19 +25,17 @@ button {
     display: inline-block;
     width: 400px;
     height: 400px;
-    padding: 10px;
     box-shadow: 0 0 10px #0005 ;   /* kad matytume */
 }
 .row {
     /* aukscio negalime rasyt, nes nezinome, kiek bus eiluciu, todel height kursime html`e */
     display: inline-block;
     width: 100%;
-    padding: 10px;
-    border: 1px solid orange ;    /* solid yra vientisa linija */
+    border: 1px solid;    /* solid yra vientisa linija */
 }
 .cell {
     /* zino, koki auksti reik tureti, bet nezino plocio, todel width kursime html`e */
     height: 100%;
     float: left;
-    border: 1px solid red ;    
+    border: 1px solid #ccc;    
 }
